@@ -16,6 +16,7 @@
   <allow-intent href="sms:*" />
   <allow-intent href="mailto:*" />
   <allow-intent href="geo:*" />
+  <icon src="logo72.png" />
   <platform name="android">
     <allow-intent href="market:*" />
   </platform>
@@ -30,32 +31,22 @@
     <icon src="res/icons/android/icon-96-xhdpi.png" density="xhdpi" />
   </platform>
   <platform name="ios">
-    <!-- iOS 8.0+ -->
-    <!-- iPhone 6 Plus  -->
-    <icon src="res/icons/ios/icon-60-3x.png" width="180" height="180" />
-    <!-- iOS 7.0+ -->
-    <!-- iPhone / iPod Touch  -->
-    <icon src="res/icons/ios/icon-60.png" width="60" height="60" />
-    <icon src="res/icons/ios/icon-60-2x.png" width="120" height="120" />
-    <!-- iPad -->
-    <icon src="res/icons/ios/icon-76.png" width="76" height="76" />
-    <icon src="res/icons/ios/icon-76-2x.png" width="152" height="152" />
-    <!-- iOS 6.1 -->
-    <!-- Spotlight Icon -->
-    <icon src="res/icons/ios/icon-40.png" width="40" height="40" />
-    <icon src="res/icons/ios/icon-40-2x.png" width="80" height="80" />
-    <!-- iPhone / iPod Touch -->
-    <icon src="res/icons/ios/icon-57.png" width="57" height="57" />
-    <icon src="res/icons/ios/icon-57-2x.png" width="114" height="114" />
-    <!-- iPad -->
-    <icon src="res/icons/ios/icon-72.png" width="72" height="72" />
-    <icon src="res/icons/ios/icon-72-2x.png" width="144" height="144" />
-    <!-- iPhone Spotlight and Settings Icon -->
-    <icon src="res/icons/ios/icon-small.png" width="29" height="29" />
-    <icon src="res/icons/ios/icon-small-2x.png" width="58" height="58" />
-    <!-- iPad Spotlight and Settings Icon -->
-    <icon src="res/icons/ios/icon-50.png" width="50" height="50" />
-    <icon src="res/icons/ios/icon-50-2x.png" width="100" height="100" />
+    <icon height="57" platform="ios" src="res/icons/ios/_icon.png" width="57" />
+    <icon height="114" platform="ios" src="res/icons/ios/_icon@2x.png" width="114" />
+    <icon height="40" platform="ios" src="res/icons/ios/_icon-40.png" width="40" />
+    <icon height="80" platform="ios" src="res/icons/ios/_icon-40@2x.png" width="80" />
+    <icon height="50" platform="ios" src="res/icons/ios/_icon-50.png" width="50" />
+    <icon height="100" platform="ios" src="res/icons/ios/_icon-50@2x.png" width="100" />
+    <icon height="60" platform="ios" src="res/icons/ios/_icon-60.png" width="60" />
+    <icon height="120" platform="ios" src="res/icons/ios/_icon-60@2x.png" width="120" />
+    <icon height="180" platform="ios" src="res/icons/ios/_icon-60@3x.png" width="180" />
+    <icon height="72" platform="ios" src="res/icons/ios/_icon-72.png" width="72" />
+    <icon height="144" platform="ios" src="res/icons/ios/_icon-72@2x.png" width="144" />
+    <icon height="76" platform="ios" src="res/icons/ios/_icon-76.png" width="76" />
+    <icon height="152" platform="ios" src="res/icons/ios/_icon-76@2x.png" width="152" />
+    <icon height="29" platform="ios" src="res/icons/ios/_icon-small.png" width="29" />
+    <icon height="58" platform="ios" src="res/icons/ios/_icon-small@2x.png" width="58" />
+    <icon height="87" platform="ios" src="res/icons/ios/_icon-small@3x.png" width="87" />
   </platform>
   <platform name="windows">
     <icon src="res/icons/windows/Square150x150Logo.scale-100.png" width="150" height="150" />
