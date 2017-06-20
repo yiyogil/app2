@@ -35,7 +35,7 @@
             $("#overlay").show();
         }
         function Leer() {
-            
+            f_loading();
             var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val() } };
             var jsondata = JSON.stringify(request);
             $("#div_tables").html('<br>');
@@ -50,7 +50,7 @@
                     crossDomain: true,
                     url: 'http://rgebooking.com:8090/Service1.svc/rest/OtenerFacturasxPeriodoxUsuario',
                     success: function (resultdata) {
-                        f_loading();
+                      
                         
                         $.each(resultdata.OtenerFacturasxPeriodoxUsuarioResult, function (k, v) {
                             var content = "";
