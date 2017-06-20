@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!--
+        Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
+        Para obtener más detalles, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+ 
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no"> 
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <title>SiavAPP</title>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    
+    <script>
+
+        //$("#overlay").show();
+
+        function f_cargar_1() {
+
+            window.location = "FacturadoxUsuario.html";
+        }
+
+        function f_cargar_2() {
+
+            window.location = "FacturadoxCliente.html";
+        }
+
+        function f_unloading() {
+            $("#overlay").hide();
+        }
+        function f_loading() {
+            $("#overlay").show();
+        }
+       
+
+    </script>   
+
+    <style>
+
+        .btn2 {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+
+.default:hover {background: #ddd;}
+    </style>
+
+   
+</head>
+
+
+<body> 
+   
+    <center>
+        <h3 class="card-header"> <img src="images/Logo-RGE2idx.png" /></h3>
+    </center>
+    <br />
+    <div class="container">
+       
+        
+        
+        <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+            
+            <div class="card-block">
+                <center>
+
+                    <h4 class="card-title"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;APP GERENCIAL</h4>
+                    <p class="card-text">
+                        APP para control de facturacion mensual, consulta de documentacion clientes y control crediticio a los clientes.
+                    </p>
+                </center>
+                <hr />
+
+
+                <button type="button" class="btn2 success btn-block" onclick="f_cargar_1()"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Facturacion y Ganancias</button>
+                <button type="button" class="btn2 info btn-block" onclick="f_cargar_2()"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Facturacion y Cobranza</button>
+                <button type="button" class="btn2 warning btn-block">3.- Opcion 03</button>
+                <button type="button" class="btn2 danger btn-block">4.- Opcion 05</button>
+                <button type="button" class="btn2 default btn-block">5.- Opcion 06</button>
+            </div>
+        </div> 
+    </div>
+
+
+    
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    
+    
+ 
+
+    
+
+</body>
+</html>
