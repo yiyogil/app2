@@ -48,11 +48,11 @@
                     dataType: "json", //Expected data format from server
                     processdata: true, //True or False 
                     crossDomain: true,
-                    url: 'http://rgebooking.com:8090/Service1.svc/rest/OtenerFacturasxPeriodoxUsuario',
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerFacturasxPeriodoxUsuario',
                     success: function (resultdata) {
                       
                         
-                        $.each(resultdata.OtenerFacturasxPeriodoxUsuarioResult, function (k, v) {
+                        $.each(resultdata.ObtenerFacturasxPeriodoxUsuarioResult, function (k, v) {
                             var content = "";
                             var v_total = 0.00;
                             var v_ganancia = 0.00;
