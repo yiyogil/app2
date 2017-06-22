@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-
-
 <head>
-      
+
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <!--
         Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
@@ -42,7 +40,7 @@
             var jsondata = JSON.stringify(request);
             $("#div_tables").html('<br>');
 
-            $(function () {  
+            $(function () {
                 $.ajax({
                     type: "POST",
                     data: jsondata, //Data sent to server
@@ -50,23 +48,33 @@
                     dataType: "json", //Expected data format from server
                     processdata: true, //True or False
                     crossDomain: true,
-                    url: 'http://rgebooking.com:8090/Service1.svc/rest/OtenerFacturasxPeriodoxCliente',
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerEstadoReservaxUsuario',
                     success: function (resultdata) {
-                     
-                         
-                        $.each(resultdata.OtenerFacturasxPeriodoxClienteResult, function (k, v) {
+
+
+                        $.each(resultdata.ObtenerEstadoReservaxUsuarioResult, function (k, v) {
                             var content = "";
-                            var v_total = 0.00;
-                            var v_cobrado = 0.00;
+                            var v_total_solicitados = 0;
+                            var v_total_confirmados = 0;
+                            var v_total_reconfirmados = 0;
+                            var v_total_anulados = 0;
+                            var v_total = 0
+                            var v_total_total = 0
+
+                            //var v_cobrado = 0.00;
                             $.each(v, function (y, z) {
                                 if (y == 0) {
-                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.anio_mes + '</h4></strong></td></tr>' + '<tr class="success"><td align="center"><strong>CLIENTE</strong></td><td align="center"><strong>FACTURADO</strong></td><td align="center"><strong>COBRADO</strong></td></tr>';
+                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="6" align="center"><strong><h4>' + z.anio_mes + '</h4></strong></td></tr>' + '<tr class="success"><td align="center"><strong>Vendedor</strong></td><td align="center"><strong>Sol.</strong></td><td align="center"><strong>Conf.</strong></td><td align="center"><strong>Reconf.</strong></td><td align="center"><strong>Anu.</strong></td><td align="center"><strong>Total</strong></td></tr>';
                                 }
-                                content += '<tr><td>' + z.nombre_cliente.substring(0, 10) + '</td><td align="center">' + z.importe_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + '<td align="center">' + z.importe_cobrado.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + ' </tr>';
-                                v_total += z.importe_total;
-                                v_cobrado += z.importe_cobrado;
+                                v_total = z.solicitados + z.confirmados + z.reconfirmados + z.anulados;
+                                content += '<tr><td>' + z.nombre_usuario + '</td><td align="center">' + z.solicitados + '</td>' + '<td align="center">' + z.confirmados + '</td>' + '<td align="center">' + z.reconfirmados + '</td>' + '<td align="center">' + z.anulados + '</td>' + '<td align="center">' + v_total + '</td>' + ' </tr>';
+                                v_total_solicitados += z.solicitados;
+                                v_total_confirmados += z.confirmados;
+                                v_total_reconfirmados += z.reconfirmados;
+                                v_total_anulados += z.anulados;
+                                v_total_total += v_total;
                             });
-                            content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + v_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</strong></td><td align="center"><strong>' + v_cobrado.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</strong></td></tr><table></div></div><br>';
+                            content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + v_total_solicitados + '</strong></td><td align="center"><strong>' + v_total_confirmados + '</strong></td>' + '<td align="center"><strong>' + v_total_reconfirmados + '</strong></td>' + '<td align="center"><strong>' + v_total_anulados + '</strong></td>' + '<td align="center"><strong>' + v_total_total + '</strong></td>' + '</tr><table></div></div><br>';
                             $('#div_tables').append(content);
                         });
 
@@ -149,7 +157,7 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Facturacion y Cobranza</a>
+            <a class="navbar-brand" href="#"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Reservas - Vendedores</a>
             <form class="form-inline my-2 my-lg-0"></form>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
@@ -197,20 +205,15 @@
 
     <hr />
     <div class="container">
-       
+            <div class="row">
+                <div class="col">
 
-      <div class="row">
-          <div class="col">
-              
-                  <div id="div_tables" class="table-responsive">
-                      <br />
-                  </div>
-            
-          </div>
-      </div>
+                    <div id="div_tables">
+                        <br />
+                    </div>
 
-        
-
+                </div>
+            </div>
     </div>
 
 
@@ -236,6 +239,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     
     <script> 
+
+
+        Date.prototype.addDays = function (days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+
         $(function () {
             var fechafinal = new Date();
             var fechainicio = new Date();
@@ -253,6 +264,7 @@
                    dateFormat: "dd/mm/yy"
                }
            );
+            fechafinal = fechafinal.addDays(400);
 
             $("#fecha_servicio_fin").datepicker("setDate", fechafinal);
             $("#fecha_servicio_fin").keypress(function (event) { event.preventDefault(); });

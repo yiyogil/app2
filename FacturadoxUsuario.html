@@ -46,7 +46,7 @@
                     data: jsondata, //Data sent to server
                     contentType: "application/json", // content type sent to server
                     dataType: "json", //Expected data format from server
-                    processdata: true, //True or False
+                    processdata: true, //True or False 
                     crossDomain: true,
                     url: 'http://rgebooking.com:8090/Service1.svc/rest/OtenerFacturasxPeriodoxUsuario',
                     success: function (resultdata) {
@@ -58,7 +58,7 @@
                             var v_ganancia = 0.00;
                             $.each(v, function (y, z) {
                                 if (y == 0) {
-                                    content = '<div class="row"><div class="col"><table class="table table-inverse"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.anio_mes + '</h4></strong></td></tr>' + '<tr class="success"><td align="center"><strong>VENDEDOR</strong></td><td align="center"><strong>FACTURADO</strong></td><td align="center"><strong>GANANCIA</strong></td></tr>';
+                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.anio_mes + '</h4></strong></td></tr>' + '<tr class="success"><td align="center"><strong>VENDEDOR</strong></td><td align="center"><strong>FACTURADO</strong></td><td align="center"><strong>GANANCIA</strong></td></tr>';
                                 }
                                 content += '<tr><td>' + z.usuario_reserva + '</td><td align="center">' + z.importe_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + '<td align="center">' + z.importe_ganancia.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + ' </tr>';
                                 v_total += z.importe_total;
@@ -195,20 +195,15 @@
 
     <hr />
     <div class="container">
-       
+            <div class="row">
+                <div class="col">
 
-      <div class="row">
-          <div class="col-xs-12">
-              
-                  <div id="div_tables" class="table-responsive">
-                      <br />
-                  </div>
-            
-          </div>
-      </div>
+                    <div id="div_tables">
+                        <br />
+                    </div>
 
-        
-
+                </div>
+            </div>
     </div>
 
 

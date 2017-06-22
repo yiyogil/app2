@@ -36,6 +36,16 @@
             window.location = "FacturadoxCliente.html";
         }
 
+        function f_cargar_3() {
+
+            window.location = "EstadosReservaxUsuario.html"; 
+        }
+
+        function f_cargar_4() {
+
+            window.location = "EstadosReservaxCliente.html";
+        }
+
         function f_unloading() {
             $("#overlay").hide();
         }
@@ -78,16 +88,21 @@
 
 <body> 
    
-    <center>
-        <h3 class="card-header"> <img src="images/Logo-RGE2idx.png" /></h3>
-    </center>
+    
     <br />
     <div class="container">
        
         
         
         <div class="card card-inverse" style="background-color: #333; border-color: #333;">
-            
+            <center>
+                
+
+
+                <h3 class="card-header"> <img src="images/Logo-RGE2idx.png"/></h3>
+
+
+            </center>
             <div class="card-block">
                 <center>
 
@@ -101,8 +116,8 @@
 
                 <button type="button" class="btn2 success btn-block" onclick="f_cargar_1()"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Facturacion y Ganancias</button>
                 <button type="button" class="btn2 info btn-block" onclick="f_cargar_2()"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Facturacion y Cobranza</button>
-                <button type="button" class="btn2 warning btn-block">3.- Opcion 03</button>
-                <button type="button" class="btn2 danger btn-block">4.- Opcion 05</button>
+                <button type="button" class="btn2 warning btn-block" onclick="f_cargar_3()"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Reservas - Vendedores</button>
+                <button type="button" class="btn2 danger btn-block" onclick="f_cargar_4()"><i class="fa fa-code-fork" aria-hidden="true"></i>&nbsp;Reservas - Clientes</button>
                 <button type="button" class="btn2 default btn-block">5.- Opcion 06</button>
             </div>
         </div> 
