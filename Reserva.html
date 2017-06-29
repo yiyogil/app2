@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+      
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!--
+        Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
+        Para obtener más detalles, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+ 
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <title>SiavAPP</title>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+
+        function f_cargar_1() {
+
+            window.location = "index.html";
+        }
+
+        function processForm(p) {
+
+            var parameters = location.search.substring(1).split("&");
+            var temp1 = parameters[0].split("=");
+
+            if (p == 1) {
+                return unescape(temp1[1]);
+            }
+
+        }
+
+        function f_cargar_2() {
+            window.history.back();
+            //navigator.app.backHistory();
+            //window.location = "index.html";
+            //            History.go(-1);
+            //history.go(-1);
+            //navigator.app.backHistory();
+        }
+
+        function f_cargar_1() {
+
+            window.location = "index.html";
+        }
+        //$("#overlay").show();
+
+        function f_unloading() {
+            $("#overlay").hide();
+        }
+        function f_loading() {
+            $("#overlay").show();
+        }
+         
+        function Leer() {
+            f_loading();
+            var request = { datosNotificacion: { id_reserva: processForm(1) } };
+            var jsondata = JSON.stringify(request);
+         //   $("#div_tables").html('<br>');
+
+            $(function () {  
+                $.ajax({
+                    type: "POST",
+                    data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerAppReservaCabecera',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerAppReservaCabeceraResult, function (k, v) {
+                            $(id_reserva).html(v.id_reserva);
+                            $(id_nombre).html(v.nombre_reserva);
+                            $(id_paquete).html(v.nombre_paquete);
+                            $(id_ingreso).html(v.ingreso);
+                            $(id_salida).html(v.salida);
+
+                            $(id_reconfirmado).html(v.fecha_reconf_reserva);
+
+                            
+                            $(id_cliente).html(v.Nombre);
+                            $(id_counter_cliente).html(v.personal_cliente_nombre);
+                            $(id_pais).html(v.pais_nombre);
+                            $(id_confirmado_por).html(v.usuario_nombre);
+
+                            $(id_facturado).html(v.importe_facturado);
+
+                            $(id_cobrado).html(v.cobrado);
+
+                            $(id_costo_hotel).html(v.costo_hoteles);
+                            $(id_costo_servicio).html(v.costo_servicios);
+                            $(id_costo).html(v.costo_hoteles +v.costo_servicios);
+
+                            $(id_venta_hotel).html(v.venta_hoteles);
+                            $(id_venta_servicio).html(v.venta_servicios);
+                            $(id_venta).html(v.venta_hoteles + v.venta_servicios);
+
+                            $(id_ganancia_hotel).html(v.ganancia_hoteles);
+                            $(id_ganancia_servicio).html(v.ganancia_servicios);
+                            $(id_ganancia).html(v.ganancia_hoteles + v.ganancia_servicios);
+
+                            $(id_ganancia_real).html(v.ganancia_hoteles + v.ganancia_servicios + v.costo_servicios);
+                        
+                        });
+
+                    },
+                    error: function (e) {
+
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+
+            $(function () {
+                $.ajax({
+                    type: "POST",
+                    data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerAppReservaDetalles',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerAppReservaDetallesResult, function (k, v) {
+                            $(id_tabla_reserva_detalle).append('<tr>' + '<td>' + v.check_in_1 + '</td>' + '<td>' + v.check_out_1 + '</td>' + '<td>' + v.nombre_hotel + '</td></tr>');
+                            
+
+                        });
+
+                    },
+                    error: function (e) {
+
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+            $(function () {
+                $.ajax({
+                    type: "POST",
+                    data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerAppRecuperaDocumentacionReserva',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerAppRecuperaDocumentacionReservaResult, function (k, v) {
+                          
+                            $(id_tabla_documentos).append('<tr>' + '<td>' + v.factura + '</td>' + '<td align="center"><a href="xxxx"><i class="fa fa-eye" aria-hidden="true"></i></a></td></tr>');
+                             
+                        });
+
+                    },
+                    error: function (e) {
+
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+            
+
+        }
+
+    </script>   
+
+    <style>
+        #overlay {
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgb(114, 121, 111);
+            transition: 1s 0.4s;
+        } 
+
+
+        #progstat {
+            font-size: 0.7em;
+            letter-spacing: 3px;
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+        }
+
+
+           
+
+        .btn2 {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+
+.default:hover {background: #ddd;}
+    </style>
+     
+</head>
+
+
+<body onload="f_unloading();">
+    
+    <center>
+        <nav class="navbar navbar-inverse bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Reserva</a>
+            <form class="form-inline my-2 my-lg-0"></form>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-item nav-link active" href="#" onclick="f_cargar_2();"><i class="fa fa-backward" aria-hidden="true"></i> &nbsp;Regresar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link active" href="#" onclick="f_cargar_1();"><i class="fa fa-home" aria-hidden="true"></i> &nbsp;Inicio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </center>
+    <hr />
+    <div class="container">
+      <div class="row">
+          <div class="col-xs-12 col-sm-6">
+
+              <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                  <center>
+                      <h5 class="card-header"><i class="fa fa-folder-open" aria-hidden="true"></i>
+                      &nbsp;Datos de la Reserva</h5>
+                  </center>
+
+                  <div class="card-block">
+                      <div id="div_tables_1" class="table-responsive">
+                          <table class="table table-inverse table-sm" >
+                              <tr>
+                                  <td>Reserva</td>
+                                  <td>:</td>
+                                  <td><span id="id_reserva"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Nombre</td>
+                                  <td>:</td>
+                                  <td><span id="id_nombre"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Paquete</td>
+                                  <td>:</td>
+                                  <td><span id="id_paquete"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Ingreso</td>
+                                  <td>:</td>
+                                  <td><span id="id_ingreso"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Salida</td>
+                                  <td>:</td>
+                                  <td><span id="id_salida"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Reconfirmado</td>
+                                  <td>:</td>
+                                  <td><span id="id_reconfirmado"></span></td>
+                              </tr>
+                          </table>
+
+
+                      </div>
+
+
+                  </div>
+              </div> 
+                
+          </div>
+          
+          <div class="col-xs-12 col-sm-6">
+              <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                  <center>
+                      <h5 class="card-header">
+                          <i class="fa fa-ravelry" aria-hidden="true"></i>
+                          &nbsp;Datos del Cliente
+                      </h5>
+                  </center>
+
+                  <div class="card-block">
+                      <div id="div_tables_1" class="table-responsive">
+                          <table class="table table-inverse table-sm">
+                              <tr>
+                                  <td>Cliente</td>
+                                  <td>:</td>
+                                  <td><span id="id_cliente"></span></td>
+                              </tr>
+                              <tr>
+                                  <td>Counter</td>
+                                  <td>:</td>
+                                  <td><span id="id_counter_cliente"></span></td>
+                              </tr>
+
+                              <tr>
+                                  <td>Pais</td>
+                                  <td>:</td>
+                                  <td><span id="id_pais"></span></td>
+                              </tr>
+
+                              <tr>
+                                  <td>Conf. por</td>
+                                  <td>:</td>
+                                  <td><span id="id_confirmado_por"></span></td>
+                              </tr>
+
+                              <tr class="success">
+                                  <td>Facturado</td>
+                                  <td>:</td>
+                                  <td><span id="id_facturado"></span></td>
+                              </tr>
+
+
+                              <tr class="info">
+                                  <td>Cobrado</td>
+                                  <td>:</td>
+                                  <td><span id="id_cobrado"></span></td>
+                              </tr>
+
+                          </table>
+
+
+                      </div>
+
+
+                  </div>
+              </div>
+          </div> 
+      </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                    <center>
+                        <h5 class="card-header">
+                            <i class="fa fa-calculator" aria-hidden="true"></i>
+                            &nbsp;Numeros
+                        </h5>
+                    </center>
+
+                    <div class="card-block">
+                        <div id="div_tables_1" class="table-responsive">
+                            <table class="table table-inverse table-sm">
+                                <tr>
+                                    <td align="center">
+                                        <i class="fa fa-clone" aria-hidden="true"></i>
+                                    </td>
+                                    <td align="center"><i class="fa fa-car" aria-hidden="true"></i></td>
+                                    <td align="center"><i class="fa fa-bed" aria-hidden="true"></i></td>
+                                    <td align="center">Total</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Costo </td>
+                                    <td align="center"><span id="id_costo_servicio"></span></td>
+                                    <td align="center"><span id="id_costo_hotel"></span></td>
+                                    <td align="center"><span id="id_costo"></span></td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td>Ganancia </td>
+                                    <td align="center"><span id="id_ganancia_servicio"></span></td>
+                                    <td align="center"><span id="id_ganancia_hotel"></span></td>
+                                    <td align="center"><span id="id_ganancia"></span></td>
+                                </tr>
+
+                                <tr class="warning">
+                                    <td>Venta </td>
+                                    <td align="center"><span id="id_venta_servicio"></span></td>
+                                    <td align="center"><span id="id_venta_hotel"></span></td>
+                                    <td align="center"><span id="id_venta"></span></td>
+                                </tr>
+                                <tr class="danger">
+                                    <td colspan="2">Ganancia Real </td>
+                                    <td colspan="2" align="center"><span id="id_ganancia_real"></span></td>
+
+                                </tr>
+
+
+                            </table>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-xs-12 col-sm-6">
+                <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                    <center>
+                        <h5 class="card-header">
+                            <i class="fa fa-id-card" aria-hidden="true"></i>
+                            &nbsp;Documentacion
+                        </h5>
+                    </center>
+                    <div class="card-block">
+                        <table id="id_tabla_documentos" class="table table-inverse table-sm">
+                            <tr>
+                                <td align="center"><strong>Documento</strong></td>
+                                <td align="center"><strong>Ver</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        
+        <hr />
+        <div class="row"> 
+            <div class="col">
+                <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+                    <center>
+                        <h5 class="card-header">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                            &nbsp;Detalle Reservacion
+                        </h5>
+                    </center>
+                    <div class="card-block">
+                        <table id="id_tabla_reserva_detalle" class="table table-inverse table-sm">
+                            <tr>
+                                <td align="center"><strong>Inicio</strong></td>
+                                <td align="center"><strong>Final</strong></td>
+                                <td align="center"><strong>Servicio/Hotel</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="overlay">
+        <div id="progstat">
+            <p>
+                <img src="images/logo2.png" />
+            </p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    Un momento por favor!
+                </div>
+            </div>
+        </div>
+    </div>
+  
+     
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+ <script>
+     Leer();
+ </script>
+    
+    
+
+</body>
+</html>
