@@ -170,7 +170,7 @@
                     success: function (resultdata) {
                         $.each(resultdata.ObtenerAppRecuperaDocumentacionReservaResult, function (k, v) {
                           
-                            $(id_tabla_documentos).append('<tr>' + '<td>' + v.factura + '</td>' + '<td align="center"><a href="xxxx"><i class="fa fa-eye" aria-hidden="true"></i></a></td></tr>');
+                            $(id_tabla_documentos).append('<tr>' + '<td>' + v.factura + '</td>' + '<td align="center"><a href="http://rgebooking.com:8090/Service1.svc/rest/DescargarDocumento?tipo=' + v.id_documento + '&id=' + v.id_factura+ '"><i class="fa fa-eye" aria-hidden="true"></i></a></td></tr>');
                              
                         });
 
@@ -190,6 +190,8 @@
             
 
         }
+
+        
 
     </script>   
 
