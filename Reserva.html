@@ -61,11 +61,49 @@
         function f_loading() {
             $("#overlay").show();
         }
-         
+        
+        function Leer2() {
+
+            /* otra forma de descargar
+            f_loading();
+            var request = { datosNotificacion: { id_reserva: processForm(1) } };
+            var jsondata = JSON.stringify(request);
+            
+
+
+            $(function () {
+                $.ajax({
+                    type: "GET",
+                    data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    //dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/DescargarDocumento?tipo=LIQ&id=4664',
+                    success: function (resultdata) {
+                        debugger;
+
+                    },
+                    error: function (e) {
+                        debugger;
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+      */
+        }
         function Leer() {
             f_loading();
             var request = { datosNotificacion: { id_reserva: processForm(1) } };
             var jsondata = JSON.stringify(request);
+            var ws = "";
          //   $("#div_tables").html('<br>');
 
             $(function () {  
@@ -168,12 +206,14 @@
                     crossDomain: true,
                     url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerAppRecuperaDocumentacionReserva',
                     success: function (resultdata) {
-                        $.each(resultdata.ObtenerAppRecuperaDocumentacionReservaResult, function (k, v) {
-                          
-                            $(id_tabla_documentos).append('<tr>' + '<td>' + v.factura + '</td>' + '<td align="center"><a href="http://rgebooking.com:8090/Service1.svc/rest/DescargarDocumento?tipo=' + v.id_documento + '&id=' + v.id_factura+ '"><i class="fa fa-eye" aria-hidden="true"></i></a></td></tr>');
-                             
-                        });
+                        if (f_device() == "ANDROID") {
+                            ws = "2";
+                        }
 
+
+                        $.each(resultdata.ObtenerAppRecuperaDocumentacionReservaResult, function (k, v) {
+                            $(id_tabla_documentos).append('<tr>' + '<td>' + v.factura + '</td>' + '<td align="center"><a href="http://rgebooking.com:8090/Service1.svc/rest/DescargarDocumento' + ws+ '?tipo=' + v.id_documento + '&id=' + v.id_factura+ '"><i class="fa fa-eye" aria-hidden="true"></i></a></td></tr>');                             
+                        });
                     },
                     error: function (e) {
 
@@ -190,6 +230,21 @@
             
 
         }
+
+
+
+        function f_device() {
+            var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iPad" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iPhone" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "null";
+              
+            if (deviceType != "Android") {
+                return "IOS";
+            }
+            else {
+                return "ANDROID";
+            }
+        }
+        
+
 
         
 
