@@ -40,7 +40,7 @@
 
         function Leer() {
             f_loading();
-            var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val(), id_cliente: $("#id_cliente").val(), tipo_filtro: $("#id_tipo_filtro").val() } };
+            var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val(), id_cliente: $("#id_cliente").val(), tipo_filtro: $("#id_tipo_filtro").val(), pax_reserva: $("#id_pax_reserva").val() } };
             var jsondata = JSON.stringify(request);
          
 
@@ -54,13 +54,15 @@
                     crossDomain: true,
                     url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerAppListaReservas',
                     success: function (resultdata) {
+                        $(id_tabla_reservas).html("");
+                        $(id_tabla_reservas).append(  '<tr class="danger"><td align="center"> <strong>ID</strong></td><td align="center"><strong>Cliente</strong></td><td align="center"><strong>Estado</strong></td><td align="center"><strong>Nombre</strong></td></tr>');
                         
                         $.each(resultdata.ObtenerAppListaReservasResult, function (k, v) {
                             $(id_tabla_reservas).append('<tr><td><a href="Reserva.html?id_reserva=' + v.id_reserva+ '">' + v.id_reserva + '</a></td>' + '<td>' + v.cliente_nombre.replace(" ","").substring(0, 8) + '</td><td>' + v.estado.substring(0, 3) + '</td><td>' + v.nombre_reserva.substring(0,15) + '</td></tr>');
                         });
                     },
                     error: function (e) {
-                        debugger;
+                      
                         //showAlert();
 
                     },
@@ -165,6 +167,12 @@
                             <hr />
                             <div class="row">
                                 <div class="col">
+                                   <input class="form-control" placeholder="Pax/Reserva" id="id_pax_reserva"/>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col">
                                     <button class="btn btn-success btn-block" onclick="Leer();"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Buscar</button>
                                 </div>
                             </div>
@@ -186,12 +194,7 @@
             <div id="div_tables">
                 <br />
                 <table class="table table-inverse table-sm" id="id_tabla_reservas">
-                    <tr class="danger">
-                        <td align="center"> <strong>ID</strong></td>
-                        <td align="center"><strong>Cliente</strong></td>
-                        <td align="center"><strong>Estado</strong></td>
-                        <td align="center"><strong>Nombre</strong></td>
-                    </tr>
+                
                 </table>
             </div>
 
