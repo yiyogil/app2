@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+      
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!--
+        Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
+        Para obtener más detalles, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+ 
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <title>SiavAPP</title>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+
+        function f_cargar_1() {
+
+            window.location = "index.html";
+        }
+        //$("#overlay").show();
+
+        function f_unloading() {
+            $("#overlay").hide();
+        }
+        function f_loading() {
+            $("#overlay").show();
+        }
+
+        function Leer() {
+            if ($("#opcion").val() == "1") {
+                Leer1();
+            }
+            else {
+                Leer2();
+            }
+
+        }
+        function Leer1() {
+            f_loading();
+            var request = { datosNotificacion: { anio: $("#anio").val(), mes: $("#mes").val() } };
+            var jsondata = JSON.stringify(request);
+            $("#div_tables").html('<br>');
+
+            $(function () {  
+                $.ajax({
+                    type: "POST",
+                    data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://localhost:51319/Service1.svc/rest/ObtenerCantidadPaquetesVendidos',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerCantidadPaquetesVendidosResult, function (k, v) {
+                            var content = "";
+                            var v_total = 0;
+                    
+                            $.each(v, function (y, z) {
+                                if (y == 0) {
+                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.anio_mes + '</h4></strong></td></tr>';
+                                }
+                                content += '<tr><td>' + z.nombre_paquete + '</td><td align="center">' + z.cantidad_paquete+ '</td></tr>';
+                                v_total += z.cantidad_paquete;
+                           
+                            });
+                            content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + v_total + '</strong></td></tr><table></div></div><br>';
+                            $('#div_tables').append(content);
+                        });
+                        
+                    },
+                    error: function (e) {
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+
+        }
+
+
+        function Leer2() {
+            f_loading();
+           // var request = { datosNotificacion: { anio: $("#anio").val(), mes: $("#mes").val() } };
+          //  var jsondata = JSON.stringify(request);
+            $("#div_tables").html('<br>');
+
+            $(function () {
+                $.ajax({
+                    type: "GET",
+                    //data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://localhost:51319/Service1.svc/rest/ObtenerCantidadPaquetesNoVendidos',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerCantidadPaquetesNoVendidosResult, function (k, z) {
+
+                            if (k == 0) {
+                                content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr><td align="center" class="success" colspan=4><h4>Paquetes No Vendidos</h4></td></tr><tr class="danger"><td align="center"><strong>ID</strong></td><td align="center"><strong>Nombre</strong></td><td align="center"><strong>Estado</strong></td><td align="center"><strong>Creado</strong></td></tr>';
+                            }
+                            content += '<tr><td align="center">' + z.id_tarifario + '</td><td align="center">' + z.nombre + '</td>' + '<td align="center">' + z.estado + '</td>' + '<td align="center">' + z.fecha_creacion_str + '</td></tr>';
+                            
+                        });
+                        if (content != "") {
+                            content += '</table></div></div><br>';
+                        }
+
+                        $('#div_tables').append(content);
+
+                    },
+                    error: function (e) {
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+
+        }
+
+       
+
+    </script>   
+
+    <style>
+        #overlay {
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgb(114, 121, 111);
+            transition: 1s 0.4s;
+        }
+
+
+        #progstat {
+            font-size: 0.7em;
+            letter-spacing: 3px;
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+        }
+
+
+          <style>
+
+        .btn2 {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.info {background-color: #2196F3;} /* Blue */
+.info:hover {background: #0b7dda;}
+
+.warning {background-color: #ff9800;} /* Orange */
+.warning:hover {background: #e68a00;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+
+.default:hover {background: #ddd;}
+    </style>
+     
+</head>
+
+
+
+<body onload="f_unloading();">
+
+    <script>
+        ComboPaises();</script>
+    <center>
+        <nav class="navbar navbar-inverse bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-codepen" aria-hidden="true"></i>&nbsp;Cantidad Venta Paquetes</a>
+            <form class="form-inline my-2 my-lg-0"></form>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                        <li class="nav-item">
+                            <div class="row">
+                                <div class="col">
+                                    <select id="anio"  class="form-control">
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select id="mes" class="form-control">
+                                        <option value="0">Todos</option>
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                            </div>
+                             
+                            <hr />
+                            <div class="row">
+                                <div class="col">
+                                    <select id="opcion" class="form-control">
+                                       <option value="1">Paquetes Vendidos</option>
+                                       <option value="2">Paquetes No Vendidos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-success btn-block" onclick="Leer();"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Buscar</button>
+                                </div>
+                            </div>
+
+                             
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link active" href="#" onclick="f_cargar_1();"><i class="fa fa-home" aria-hidden="true"></i> &nbsp;Inicio</a>
+                        </li>
+                    </ul>
+
+
+
+
+                </div>
+            </div>
+
+        </nav>
+    </center>
+
+    
+
+
+    
+    
+
+
+    <hr />
+    <div class="container">
+       
+
+      <div class="row">
+          <div class="col">
+              
+                  <div id="div_tables" class="table-responsive">
+                      <br />
+                  </div>
+            
+          </div>
+      </div>
+
+        
+
+    </div>
+
+
+    
+        <div id="overlay">
+            <div id="progstat">
+                <p>
+                    <img src="images/logo2.png" />
+                </p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        Un momento por favor!
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+     
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+    <script> 
+  
+        var d = new Date();
+        var n = d.getMonth() + 1;//.toString();
+        var m = d.getFullYear();//.toString();
+        
+        $("#anio").val(m.toString());
+        $("#mes").val("0");
+
+    </script>
+
+    
+
+</body>
+</html>
