@@ -60,7 +60,7 @@
                     dataType: "json", //Expected data format from server
                     processdata: true, //True or False
                     crossDomain: true,
-                    url: 'http://localhost:51319/Service1.svc/rest/ObtenerCantidadPaquetesVendidos',
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerCantidadPaquetesVendidos',
                     success: function (resultdata) {
                         $.each(resultdata.ObtenerCantidadPaquetesVendidosResult, function (k, v) {
                             var content = "";
@@ -109,7 +109,7 @@
                     dataType: "json", //Expected data format from server
                     processdata: true, //True or False
                     crossDomain: true,
-                    url: 'http://localhost:51319/Service1.svc/rest/ObtenerCantidadPaquetesNoVendidos',
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerCantidadPaquetesNoVendidos',
                     success: function (resultdata) {
                         $.each(resultdata.ObtenerCantidadPaquetesNoVendidosResult, function (k, z) {
 
