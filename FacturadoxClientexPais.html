@@ -58,7 +58,7 @@
                             var v_cobrado = 0.00;
                             $.each(v, function (y, z) {
                                 if (y == 0) {
-                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.pais + '</h4></strong></td></tr>' + '</tr>';
+                                    content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.pais + '</h4></strong></td></tr><tr class="success"><td align="center">Cliente</td><td align="center">Facturado</td><td align="center">Cobrado</td></tr>' + '</tr>';
                                 }
                                 content += '<tr><td>' + z.nombre_cliente.substring(0, 10) + '</td><td align="center">' + z.importe_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + '<td align="center">' + z.importe_cobrado.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + ' </tr>';
                                 v_total += z.importe_total;
