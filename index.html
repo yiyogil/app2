@@ -117,8 +117,12 @@
     
     <br />
     <div class="container">
-       
-        
+      
+
+
+
+
+
         
         <div class="card card-inverse" style="background-color: #333; border-color: #333;">
             <center>
@@ -127,22 +131,56 @@
 
 
             </center>
+
+             
+
             <div class="card-block">
                 <center>
 
                     <h5 class="card-title"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;APP GERENCIAL</h5>
                   
                 </center>
-                <hr />
-                <button type="button" class="btn2 success btn-block" onclick="f_cargar_1()"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Facturacion y Ganancias</button>
-                <button type="button" class="btn2 info btn-block" onclick="f_cargar_2()"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Facturacion y Cobranza</button>
-                <button type="button" class="btn2 warning btn-block" onclick="f_cargar_3()"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Reservas - Vendedores</button>
-                <button type="button" class="btn2 danger btn-block" onclick="f_cargar_4()"><i class="fa fa-code-fork" aria-hidden="true"></i>&nbsp;Reservas - Clientes</button>
-                <button type="button" class="btn2 default btn-block"  onclick="f_cargar_5()" ><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Listar Reservas</button>
-                <button type="button" class="btn2 success btn-block" onclick="f_cargar_6()"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;Pasajeros por Cliente y Pais</button>
-                <button type="button" class="btn2 info btn-block" onclick="f_cargar_7()"><i class="fa fa-angellist" aria-hidden="true"></i>&nbsp;Cantidad Reservas</button>
-                <button type="button" class="btn2 warning btn-block" onclick="f_cargar_8()"><i class="fa fa-codepen" aria-hidden="true"></i>&nbsp;Cantidad Venta Paquetes</button>
-                <button type="button" class="btn2 danger btn-block" onclick="f_cargar_9()"><i class="fa fa-adjust" aria-hidden="true"></i>&nbsp;Facturacion por Pais</button> 
+                
+                <p>
+                    <button class="btn2 btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Facturacion
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body ">
+                        <button type="button" class="btn btn-success btn-block" onclick="f_cargar_1()"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Ver Ganancias</button>
+                        <button type="button" class="btn btn-info btn-block" onclick="f_cargar_2()"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Ver Cobranza</button>
+                        <button type="button" class="btn btn-danger btn-block" onclick="f_cargar_9()"><i class="fa fa-adjust" aria-hidden="true"></i>&nbsp;Ver Paises</button>
+                    </div>
+                    <br />
+                </div>
+
+                <p>
+                    <button class="btn2 btn-danger btn-block" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                        Reservas
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample2">
+                    <div class="card card-body">
+                        <button type="button" class="btn btn-warning btn-block" onclick="f_cargar_3()"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Vendedores</button>
+                        <button type="button" class="btn btn-danger btn-block" onclick="f_cargar_4()"><i class="fa fa-code-fork" aria-hidden="true"></i>&nbsp;Clientes</button>
+                        <button type="button" class="btn btn-default btn-block" onclick="f_cargar_5()"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Reservas</button>
+                    </div>
+                    <br />
+                </div>
+                <p>
+                    <button class="btn2 btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+                        Cantidades
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample3">
+                    <div class="card card-body">
+                        <button type="button" class="btn btn-success btn-block" onclick="f_cargar_6()"><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;Pasajeros por Cliente y Pais</button>
+                        <button type="button" class="btn btn-info btn-block" onclick="f_cargar_7()"><i class="fa fa-angellist" aria-hidden="true"></i>&nbsp;Cantidad Reservas</button>
+                        <button type="button" class="btn btn-warning btn-block" onclick="f_cargar_8()"><i class="fa fa-codepen" aria-hidden="true"></i>&nbsp;Cantidad Venta Paquetes</button>
+                    </div>
+                    <br />
+                </div>
                  
             </div>
         </div> 

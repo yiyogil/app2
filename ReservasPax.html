@@ -38,7 +38,7 @@
         }
         function Leer() {
             f_loading();
-            var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val(), id_pais: $("#id_pais").val() } };
+            var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val(), id_pais: $("#id_pais").val(), texto_notificacion: $("#texto_busqueda").val() } };
             var jsondata = JSON.stringify(request);
             $("#div_tables").html('<br>');
 
@@ -53,7 +53,7 @@
                     url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerReservasxPaxxCliente',
                     success: function (resultdata) {
                          
-                     
+                        var totaltotal = 0;
                          
                         $.each(resultdata.ObtenerReservasxPaxxClienteResult, function (k, v) {
                            // debugger;
@@ -66,12 +66,17 @@
                                 }
                                 content += '<tr><td>' + z.cliente.substring(0, 10) + '</td><td align="center">' + z.pax + '</td>' + ' </tr>';
                                 total = total + z.pax;
+                                
                             });
                            // debugger
-                            content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + total + '</strong></td></tr><table></div></div><br>';
+                            content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + total + '</strong></td></tr></table></div></div><br>';
                             $('#div_tables').append(content);
+                            totaltotal += total;
+
                         });
 
+                        content = '<table class="table table-inverse table-sm><tr  class="info"><td align="center"><strong>TOTAL GENERAL</strong></td><td align="center"><strong>' + totaltotal + '</strong></td></tr></table>';
+                        $('#div_tables').append(content);
                     },
                     error: function (e) {
 
@@ -92,7 +97,7 @@
 
         function ComboPaises() {
             f_loading();
-            debugger;
+
           //  var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val(), id_pais: $("#id_pais").val() } };
             //var jsondata = JSON.stringify(request);
             $(function () {
@@ -226,6 +231,12 @@
                                     <select id="id_pais" class="form-control">
                                         <option value="0">Todos los Paises</option>
                                     </select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" id="texto_busqueda" name="texto_busqueda" placeholder="Ingrese nombre servicio"/>
                                 </div>
                             </div>
                             
