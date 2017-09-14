@@ -6,6 +6,8 @@
   <content src="index.html" />
   <access origin="*" />
   <vs:features />
+  <preference name='phonegap-version' value='cli-7.0.1' />
+  <preference name='pgb-builder-version' value='1' />
   <preference name="SplashScreen" value="screen" />
   <preference name="windows-target-version" value="8.1" />
   <!-- Support for Cordova 5.0.0 plugin system -->
