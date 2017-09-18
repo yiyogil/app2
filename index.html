@@ -26,6 +26,13 @@
 
         //$("#overlay").show();
 
+        function f_unloading() {
+            $("#overlay").hide();
+        }
+        function f_loading() {
+            $("#overlay").show();
+        }
+
         function f_cargar_1() {
 
             window.location = "FacturadoxUsuario.html";
@@ -82,6 +89,66 @@
 
     </script>   
 
+    <script>
+        function Leer() {
+            f_loading();
+         //   var request = { datosNotificacion: { fecha_inicio_reporte: $("#fecha_servicio_inicio").val(), fecha_fin_reporte: $("#fecha_servicio_fin").val() } };
+           // var jsondata = JSON.stringify(request);
+            $("#div_tables").html('<br>');
+
+            $(function () {
+                $.ajax({
+                    type: "GET",
+                   // data: jsondata, //Data sent to server
+                    contentType: "application/json", // content type sent to server
+                    dataType: "json", //Expected data format from server
+                    processdata: true, //True or False
+                    crossDomain: true,
+                    url: 'http://rgebooking.com:8090/Service1.svc/rest/ObtenerFacturado3Periodos',
+                    success: function (resultdata) {
+                        $.each(resultdata.ObtenerFacturado3PeriodosResult, function (k, v) {
+                            var content = "";
+                            //var v_total = 0.00;
+                            //var v_ganancia = 0.00;
+
+                            $.each(v, function (y, z) {
+                                if (y == 0) {
+                                    content = "<table width='100%' class='table table-inverse table-sm'><tr class='warning'><td colspan ='4' align='center'>" + z.id_anio + "</td></tr>";
+                                    content += "<tr><td align='center'>Periodo</td><td align='center'>Factura</td><td align='center'>Inicio</td><td align='center'>Fin</td></tr>";
+                                  //  content = '<div class="row"><div class="col"><table class="table table-inverse table-sm"><tr class="danger"><td colspan="3" align="center"><strong><h4>' + z.id_anio + '</h4></strong></td></tr>' + '<tr class="success"><td align="center"><strong>VENDEDOR</strong></td><td align="center"><strong>FACTURADO</strong></td><td align="center"><strong>GANANCIA</strong></td></tr>';
+                                }
+                                content += "<tr><td align='left'>" + z.periodo + "</td><td align='center'>" + z.ingresos.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + "</td><td align='center'>" + z.ingresos_inicio_viaje.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + "</td><td align='center'>" + z.ingresos_fin_viaje.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + "</td></tr>";
+                                //content += '<tr><td>' + z.usuario_reserva + '</td><td align="center">' + z.importe_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + '<td align="center">' + z.importe_ganancia.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</td>' + ' </tr>';
+                              //  v_total += z.importe_total;
+                               // v_ganancia += z.importe_ganancia;
+                            });
+                            content += "</table><br>";
+                            //content += '<tr  class="warning"><td align="center"><strong>TOTAL</strong></td><td align="center"><strong>' + v_total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</strong></td><td align="center"><strong>' + v_ganancia.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + '</strong></td></tr><table></div></div><br>';
+                             
+                            $('#div_tables').append(content);
+                        });
+                    },
+                    error: function (e) {
+
+                        debugger;
+
+                        //showAlert();
+
+                    },
+                    complete: function () {
+
+                        f_unloading();
+                    }
+                });
+
+            });
+
+
+        }
+
+    </script>
+
+
     <style>
 
         .btn2 {
@@ -116,14 +183,7 @@
    
     
     <br />
-    <div class="container">
-      
-
-
-
-
-
-        
+    <div class="container"> 
         <div class="card card-inverse" style="background-color: #333; border-color: #333;">
             <center>
 
@@ -184,16 +244,34 @@
                  
             </div>
         </div> 
+
+        <hr />
+       
     </div>
 
+    <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+        <div class="card-block">
+            <center>
+                <h6 class="card-title"><i class="fa fa-area-chart" aria-hidden="true"></i>&nbsp;Facturacion Mensual</h6>
+            </center>
+            <button class="btn btn-info btn-block" onclick="Leer();"> Leer</button>
 
-    
+            <hr />
+            <div id="div_tables">
+
+
+            </div>
+        </div>
+    </div>
+  
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
+
+    
 
 </body>
 </html>
